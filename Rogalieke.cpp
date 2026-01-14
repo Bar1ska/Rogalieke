@@ -179,7 +179,7 @@ int main()
             {
                 cout << map[i] << endl;
             }
-            
+
             //кнопавки
             button = _getch();
             switch (button)
@@ -385,69 +385,43 @@ int main()
             //логика хождения НПС
             for (int i = 0; i < coordinateNPC.size(); ++i) 
             {
-                if (coordinateNPC[i].x > 0 && coordinateNPC[i].y > 0) 
+                if (coordinateNPC[i].x > 0 && coordinateNPC[i].y > 0)
                 {
-                    // смерть
-                    if (map[coordinateNPC[i].x - 1][coordinateNPC[i].y] == '@' ||
-                        map[coordinateNPC[i].x + 1][coordinateNPC[i].y] == '@' ||
-                        map[coordinateNPC[i].x][coordinateNPC[i].y - 1] == '@' ||
-                        map[coordinateNPC[i].x][coordinateNPC[i].y + 1] == '@') 
+                    if (coordinateNPC[i].x - 2 <= coordinate[0] && coordinateNPC[i].y - 2 <= coordinate[1]
+                     && coordinateNPC[i].x + 2 >= coordinate[0] && coordinateNPC[i].y + 2 >= coordinate[1]) 
                     {
-                        checkLevelComplete = true;
-                        checkDied = true;
-                        file.close();
-                    }
-                    // поле зрение вверз + шаг
-                    else if (map[coordinateNPC[i].x - 2][coordinateNPC[i].y - 2] == '@' ||
-                             map[coordinateNPC[i].x - 2][coordinateNPC[i].y - 1] == '@' || 
-                             map[coordinateNPC[i].x - 2][coordinateNPC[i].y] == '@' || 
-                             map[coordinateNPC[i].x - 2][coordinateNPC[i].y + 1] == '@' || 
-                             map[coordinateNPC[i].x - 2][coordinateNPC[i].y + 2] == '@')
-                             
-                    {
-                        if (map[coordinateNPC[i].x - 1][coordinateNPC[i].y] == '*') 
+                        if (map[coordinateNPC[i].x - 1][coordinateNPC[i].y] == '@' ||
+                            map[coordinateNPC[i].x][coordinateNPC[i].y - 1] == '@' ||
+                            map[coordinateNPC[i].x][coordinateNPC[i].y + 1] == '@' ||
+                            map[coordinateNPC[i].x + 1][coordinateNPC[i].y] == '@') 
+                        {
+                            checkDied = true;
+                            checkLevelComplete = true;
+                            file.close();
+                        }
+                        
+                        if (map[coordinateNPC[i].x - 1][coordinateNPC[i].y] == '*' && coordinateNPC[i].x - coordinate[0] > 0)
                         {
                             stepUp(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
                             coordinateNPC[i].x--;
                         }
-                    }
-                    // поле зрение вниз + шаг
-                    else if (map[coordinateNPC[i].x + 2][coordinateNPC[i].y - 2] == '@' ||
-                             map[coordinateNPC[i].x + 2][coordinateNPC[i].y - 1] == '@' ||
-                             map[coordinateNPC[i].x + 2][coordinateNPC[i].y] == '@' ||
-                             map[coordinateNPC[i].x + 2][coordinateNPC[i].y + 1] == '@' ||
-                             map[coordinateNPC[i].x + 2][coordinateNPC[i].y + 2] == '@' )
-                    {
-                        if (map[coordinateNPC[i].x + 1][coordinateNPC[i].y] == '*') 
+
+                        if (map[coordinateNPC[i].x + 1][coordinateNPC[i].y] == '*' && coordinate[0] - coordinateNPC[i].x > 0)
                         {
                             stepDown(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
                             coordinateNPC[i].x++;
                         }
-                    }
-                    // поле зрение права + шаг
-                    else if (map[coordinateNPC[i].x - 1][coordinateNPC[i].y + 1] == '@' ||
-                             map[coordinateNPC[i].x - 1][coordinateNPC[i].y + 2] == '@' ||
-                             map[coordinateNPC[i].x][coordinateNPC[i].y + 2] == '@' ||
-                             map[coordinateNPC[i].x + 1][coordinateNPC[i].y + 1] == '@' ||
-                             map[coordinateNPC[i].x + 1][coordinateNPC[i].y + 2] == '@') 
-                    {
-                        if (map[coordinateNPC[i].x][coordinateNPC[i].y + 1] == '*') 
-                        {
-                            stepRight(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
-                            coordinateNPC[i].y++;
-                        }
-                    }
-                    // поле зрение слева + шаг
-                    else if (map[coordinateNPC[i].x - 1][coordinateNPC[i].y - 1] == '@' ||
-                        map[coordinateNPC[i].x - 1][coordinateNPC[i].y - 2] == '@' ||
-                        map[coordinateNPC[i].x][coordinateNPC[i].y - 2] == '@' ||
-                        map[coordinateNPC[i].x + 1][coordinateNPC[i].y - 1] == '@' ||
-                        map[coordinateNPC[i].x + 1][coordinateNPC[i].y - 2] == '@')
-                    {
-                        if (map[coordinateNPC[i].x][coordinateNPC[i].y - 1] == '*') 
+                        
+                        if (map[coordinateNPC[i].x][coordinateNPC[i].y - 1] == '*' && coordinateNPC[i].y - coordinate[1] > 0) 
                         {
                             stepLeft(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
                             coordinateNPC[i].y--;
+                        }
+
+                        if (map[coordinateNPC[i].x][coordinateNPC[i].y + 1] == '*' && coordinate[1] - coordinateNPC[i].y > 0)
+                        {
+                            stepRight(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
+                            coordinateNPC[i].y++;
                         }
                     }
                 }
