@@ -405,8 +405,11 @@ int main()
                              map[coordinateNPC[i].x - 2][coordinateNPC[i].y + 2] == '@')
                              
                     {
-                        stepUp(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
-                        coordinateNPC[i].x --;
+                        if (map[coordinateNPC[i].x - 1][coordinateNPC[i].y] == '*') 
+                        {
+                            stepUp(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
+                            coordinateNPC[i].x--;
+                        }
                     }
                     // поле зрение вниз + шаг
                     else if (map[coordinateNPC[i].x + 2][coordinateNPC[i].y - 2] == '@' ||
@@ -415,8 +418,11 @@ int main()
                              map[coordinateNPC[i].x + 2][coordinateNPC[i].y + 1] == '@' ||
                              map[coordinateNPC[i].x + 2][coordinateNPC[i].y + 2] == '@' )
                     {
-                        stepDown(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
-                        coordinateNPC[i].x++;
+                        if (map[coordinateNPC[i].x + 1][coordinateNPC[i].y] == '*') 
+                        {
+                            stepDown(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
+                            coordinateNPC[i].x++;
+                        }
                     }
                     // поле зрение права + шаг
                     else if (map[coordinateNPC[i].x - 1][coordinateNPC[i].y + 1] == '@' ||
@@ -425,8 +431,11 @@ int main()
                              map[coordinateNPC[i].x + 1][coordinateNPC[i].y + 1] == '@' ||
                              map[coordinateNPC[i].x + 1][coordinateNPC[i].y + 2] == '@') 
                     {
-                        stepRight(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
-                        coordinateNPC[i].y++;
+                        if (map[coordinateNPC[i].x][coordinateNPC[i].y + 1] == '*') 
+                        {
+                            stepRight(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
+                            coordinateNPC[i].y++;
+                        }
                     }
                     // поле зрение слева + шаг
                     else if (map[coordinateNPC[i].x - 1][coordinateNPC[i].y - 1] == '@' ||
@@ -435,8 +444,11 @@ int main()
                         map[coordinateNPC[i].x + 1][coordinateNPC[i].y - 1] == '@' ||
                         map[coordinateNPC[i].x + 1][coordinateNPC[i].y - 2] == '@')
                     {
-                        stepLeft(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
-                        coordinateNPC[i].y--;
+                        if (map[coordinateNPC[i].x][coordinateNPC[i].y - 1] == '*') 
+                        {
+                            stepLeft(map, coordinateNPC[i].x, coordinateNPC[i].y, 'D');
+                            coordinateNPC[i].y--;
+                        }
                     }
                 }
             }
